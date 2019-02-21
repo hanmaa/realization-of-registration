@@ -55,21 +55,12 @@ public class User {
         this.deposit = deposit;
     }
 
-    public String getFullInformation() {
-        return "name = " + name  +
-                ", surname = " + surname  +
-                ", login = " + login  +
-                ", password = " + password  +
-                ", deposit = " + deposit;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return Objects.equals(login, user.login) &&
-                Objects.equals(password, user.password);
+        return Objects.equals(login, user.login);
     }
 
     @Override
@@ -79,8 +70,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "name = " + name  +
-                ", surname = " + surname  +
-                ", deposit = " + deposit;
+        return "User{" +
+                "name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                ", deposit=" + deposit +
+                '}';
     }
 }
