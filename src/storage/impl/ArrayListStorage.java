@@ -11,33 +11,45 @@ public class ArrayListStorage implements Storage {
     private List<User> userList = new ArrayList();
 
     @Override
+    public boolean loginVerification(User user){
+        for (User existUser : userList) {
+            if (existUser.getLogin().equals(user.getLogin())){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    @Override
     public void registration(User user) {
         userList.add(user);
     }
 
     @Override
-    public boolean authorization(User user) {
-        if (userList.contains(user)){
-            return true;
+    public User authorization(User entry) {
+        for (User user : userList) {
+            if (user.getLogin().equals(entry.getLogin()) && user.getPassword().equals(entry.getPassword())){
+                return user;
+            }
         }
-        return false;
+        return null;
     }
 
     @Override
-    public void increaseTheDeposit(User user, int addition) {
+    public void increaseTheDeposit(User user, int addition) throws NumberFormatException {
         user.setDeposit(user.getDeposit() + addition);
     }
 
     @Override
-    public void transferMoney(User user, User anotherEntry, double money) {
-        if (userList.contains(anotherEntry)){
-            for (User anotherUser : userList) {
-                if (anotherUser.equals(anotherEntry)){
-                    anotherUser.setDeposit(anotherUser.getDeposit() + money);
-                    user.setDeposit(user.getDeposit() - money);
-                }
+    public boolean transferMoney(User user, User anotherEntry, double money) {
+        for (User anotherUser : userList) {
+            if (anotherUser.getLogin().equals(anotherEntry.getLogin())){
+                anotherUser.setDeposit(anotherUser.getDeposit() + money);
+                user.setDeposit(user.getDeposit() - money);
+                return true;
             }
         }
+        return false;
     }
 
     public void changeYourName(User user, String newName) {
@@ -47,12 +59,13 @@ public class ArrayListStorage implements Storage {
     public void changeYourSurname(User user, String newSurname) {
         user.setSurname(newSurname);
     }
+
     public void changeYourPassword(User user, String newPassword) {
         user.setPassword(newPassword);
     }
 
     @Override
-    public void deleteAccount(User user) {
+    public void deleteAccount(User user){
         userList.remove(user);
     }
 
