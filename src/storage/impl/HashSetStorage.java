@@ -12,12 +12,7 @@ public class HashSetStorage implements Storage {
 
     @Override
     public boolean loginVerification(User user){
-        for (User existUser : userSet) {
-            if (existUser.getLogin().equals(user.getLogin())){
-                return false;
-            }
-        }
-        return true;
+        return userSet.stream().anyMatch(existUser -> existUser.getLogin().equals(user.getLogin()));
     }
 
     @Override
@@ -27,12 +22,8 @@ public class HashSetStorage implements Storage {
 
     @Override
     public User authorization(User entry) {
-        for (User user : userSet) {
-            if (user.getLogin().equals(entry.getLogin()) && user.getPassword().equals(entry.getPassword())){
-                return user;
-            }
-        }
-        return null;
+       return userSet.stream().filter(user -> user.getLogin().equals(entry.getLogin())
+                && user.getPassword().equals(entry.getPassword())).findAny().orElse(null);
     }
 
     @Override

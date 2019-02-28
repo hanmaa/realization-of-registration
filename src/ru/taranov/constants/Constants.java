@@ -1,4 +1,4 @@
-package constants;
+package ru.taranov.constants;
 
 public class Constants {
     public static final String HELLO = "Hello, ";

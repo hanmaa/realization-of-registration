@@ -12,12 +12,7 @@ public class ArrayListStorage implements Storage {
 
     @Override
     public boolean loginVerification(User user){
-        for (User existUser : userList) {
-            if (existUser.getLogin().equals(user.getLogin())){
-                return false;
-            }
-        }
-        return true;
+        return userList.stream().anyMatch(existUser -> existUser.getLogin().equals(user.getLogin()));
     }
 
     @Override
@@ -27,12 +22,8 @@ public class ArrayListStorage implements Storage {
 
     @Override
     public User authorization(User entry) {
-        for (User user : userList) {
-            if (user.getLogin().equals(entry.getLogin()) && user.getPassword().equals(entry.getPassword())){
-                return user;
-            }
-        }
-        return null;
+        return userList.stream().filter(user -> user.getLogin().equals(entry.getLogin())
+                && user.getPassword().equals(entry.getPassword())).findAny().orElse(null);
     }
 
     @Override

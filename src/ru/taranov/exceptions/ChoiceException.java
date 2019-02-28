@@ -1,4 +1,4 @@
-package exceptions;
+package ru.taranov.exceptions;
 
 public class ChoiceException extends Exception {
     public ChoiceException() {

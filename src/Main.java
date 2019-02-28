@@ -1,9 +1,9 @@
-import exceptions.*;
+import ru.taranov.exceptions.*;
 import ru.taranov.dto.User;
 import storage.Storage;
 import storage.impl.*;
 
-import static constants.Constants.*;
+import static ru.taranov.constants.Constants.*;
 
 import java.util.Scanner;
 
@@ -33,7 +33,7 @@ public class Main {
                         user.setName(scan.nextLine());
                         System.out.println(SURNAME);
                         user.setSurname(scan.nextLine());
-                        if (storage.loginVerification(user)) {
+                        if (!storage.loginVerification(user)) {
                             storage.registration(user);
                         } else {
                             System.out.println(REGISTRATION_ERROR);
@@ -162,4 +162,3 @@ public class Main {
         }
     }
 }
-
