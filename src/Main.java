@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Storage storage = new HashSetStorage();
+        Storage storage = new Database();
         mainMenuChoice(storage);
     }
 
@@ -24,11 +24,7 @@ public class Main {
                 int choice = Integer.parseInt(scan.nextLine());
                 switch (choice) {
                     case 1: {
-                        System.out.println(LOGIN);
-                        String login = scan.nextLine();
-                        System.out.println(PASSWORD);
-                        String password = scan.nextLine();
-                        User user = new User(login, password);
+                        User user = inputData();
                         System.out.println(NAME);
                         user.setName(scan.nextLine());
                         System.out.println(SURNAME);
@@ -40,13 +36,9 @@ public class Main {
                         }
                         break;
                     } case 2: {
-                        System.out.println(LOGIN);
-                        String login = scan.nextLine();
-                        System.out.println(PASSWORD);
-                        String password = scan.nextLine();
-                        User entry = new User(login, password);
-                        if (storage.authorization(entry)!=null) {
-                            sideMenuChoice(storage.authorization(entry), storage);
+                        User entry = inputData();
+                        if (storage.authorization(entry)) {
+                            sideMenuChoice(storage.getUser(entry), storage);
                         } else {
                             throw new AuthorizationException();
                         }
@@ -58,7 +50,7 @@ public class Main {
                         throw new ChoiceException();
                     }
                 }
-            }catch (ChoiceException e){
+            }catch (ChoiceException | NumberFormatException e){
                 System.out.println(CHOICE_EXCEPTION);
             } catch (AuthorizationException e){
                 System.out.println(AUTHORIZATION_EXCEPTION);
@@ -160,5 +152,14 @@ public class Main {
         } catch (ChoiceException e) {
             System.out.println(CHOICE_EXCEPTION);
         }
+    }
+
+    private static User inputData(){
+        Scanner scan = new Scanner(System.in);
+        System.out.println(LOGIN);
+        String login = scan.nextLine();
+        System.out.println(PASSWORD);
+        String password = scan.nextLine();
+        return new User(login, password);
     }
 }

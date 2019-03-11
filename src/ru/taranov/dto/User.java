@@ -15,6 +15,14 @@ public class User {
         this.password = password;
     }
 
+    public User(String name, String surname, String login, String password, double deposit) {
+        this.name = name;
+        this.surname = surname;
+        this.login = login;
+        this.password = password;
+        this.deposit = deposit;
+    }
+
     public User(String login) {
         this.login = login;
     }

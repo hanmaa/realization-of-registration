@@ -23,17 +23,24 @@ public class HashMapStorage implements Storage {
 
     @Override
     public void registration(User user) {
-
         userMap.put(user.getLogin(), user);
     }
 
     @Override
-    public User authorization(User entry) {
-        for (User user : userMap.values()) {
-            if (user.getLogin().equals(entry.getLogin()) && user.getPassword().equals(entry.getPassword())){
-                return user;
+    public boolean authorization(User entry) {
+        for (User existUser : userMap.values()) {
+            if (existUser.getLogin().equals(entry.getLogin())){
+                return true;
             }
         }
+        return false;
+    }
+
+    public User getUser(User entry) {
+        for (User user : userMap.values())
+            if (user.getLogin().equals(entry.getLogin()) && user.getPassword().equals(entry.getPassword())) {
+                return user;
+            }
         return null;
     }
 

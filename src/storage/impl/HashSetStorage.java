@@ -21,8 +21,13 @@ public class HashSetStorage implements Storage {
     }
 
     @Override
-    public User authorization(User entry) {
-       return userSet.stream().filter(user -> user.getLogin().equals(entry.getLogin())
+    public boolean authorization(User entry) {
+        return userSet.stream().anyMatch(user -> user.getLogin().equals(entry.getLogin())
+                && user.getPassword().equals(entry.getPassword()));
+    }
+
+    public User getUser(User entry) {
+        return userSet.stream().filter(user -> user.getLogin().equals(entry.getLogin())
                 && user.getPassword().equals(entry.getPassword())).findAny().orElse(null);
     }
 

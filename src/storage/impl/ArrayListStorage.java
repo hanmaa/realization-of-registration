@@ -21,7 +21,12 @@ public class ArrayListStorage implements Storage {
     }
 
     @Override
-    public User authorization(User entry) {
+    public boolean authorization(User entry) {
+        return userList.stream().anyMatch(user -> user.getLogin().equals(entry.getLogin())
+                && user.getPassword().equals(entry.getPassword()));
+    }
+
+    public User getUser(User entry) {
         return userList.stream().filter(user -> user.getLogin().equals(entry.getLogin())
                 && user.getPassword().equals(entry.getPassword())).findAny().orElse(null);
     }
