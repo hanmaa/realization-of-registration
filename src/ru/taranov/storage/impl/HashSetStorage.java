@@ -1,33 +1,33 @@
-package storage.impl;
+package ru.taranov.storage.impl;
 
-import storage.Storage;
+import ru.taranov.storage.Storage;
 import ru.taranov.dto.User;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
-public class ArrayListStorage implements Storage {
+public class HashSetStorage implements Storage {
 
-    private List<User> userList = new ArrayList();
+    private Set<User> userSet = new HashSet();
 
     @Override
     public boolean loginVerification(User user){
-        return userList.stream().anyMatch(existUser -> existUser.getLogin().equals(user.getLogin()));
+        return userSet.stream().anyMatch(existUser -> existUser.getLogin().equals(user.getLogin()));
     }
 
     @Override
     public void registration(User user) {
-        userList.add(user);
+        userSet.add(user);
     }
 
     @Override
     public boolean authorization(User entry) {
-        return userList.stream().anyMatch(user -> user.getLogin().equals(entry.getLogin())
+        return userSet.stream().anyMatch(user -> user.getLogin().equals(entry.getLogin())
                 && user.getPassword().equals(entry.getPassword()));
     }
 
     public User getUser(User entry) {
-        return userList.stream().filter(user -> user.getLogin().equals(entry.getLogin())
+        return userSet.stream().filter(user -> user.getLogin().equals(entry.getLogin())
                 && user.getPassword().equals(entry.getPassword())).findAny().orElse(null);
     }
 
@@ -38,7 +38,7 @@ public class ArrayListStorage implements Storage {
 
     @Override
     public boolean transferMoney(User user, User anotherEntry, double money) {
-        for (User anotherUser : userList) {
+        for (User anotherUser : userSet) {
             if (anotherUser.getLogin().equals(anotherEntry.getLogin())){
                 anotherUser.setDeposit(anotherUser.getDeposit() + money);
                 user.setDeposit(user.getDeposit() - money);
@@ -62,11 +62,11 @@ public class ArrayListStorage implements Storage {
 
     @Override
     public void deleteAccount(User user){
-        userList.remove(user);
+        userSet.remove(user);
     }
 
     @Override
     public String toString() {
-        return "User = " + userList;
+        return "User = " + userSet;
     }
 }

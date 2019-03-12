@@ -1,7 +1,9 @@
+package ru.taranov;
+
 import ru.taranov.exceptions.*;
 import ru.taranov.dto.User;
-import storage.Storage;
-import storage.impl.*;
+import ru.taranov.storage.Storage;
+import ru.taranov.storage.impl.*;
 
 import static ru.taranov.constants.Constants.*;
 
@@ -10,7 +12,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        Storage storage = new Database();
+        Storage storage = new MySQLStorage();
         mainMenuChoice(storage);
     }
 

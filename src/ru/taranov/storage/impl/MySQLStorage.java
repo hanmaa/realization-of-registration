@@ -1,12 +1,12 @@
-package storage.impl;
+package ru.taranov.storage.impl;
 
 import ru.taranov.dto.User;
-import storage.Storage;
-import database.DatabaseConnection;
+import ru.taranov.storage.Storage;
+import ru.taranov.database.DatabaseConnection;
 
 import java.sql.*;
 
-public class Database implements Storage {
+public class MySQLStorage implements Storage {
 
     private final String SELECT_USER = "SELECT * FROM users WHERE login = ?";
     private final String INSERT_NEW_USERS = "INSERT INTO users (login, password, name, surname) VALUES (?,?,?,?)";

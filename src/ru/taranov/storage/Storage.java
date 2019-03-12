@@ -1,4 +1,4 @@
-package storage;
+package ru.taranov.storage;
 
 import ru.taranov.dto.User;
 

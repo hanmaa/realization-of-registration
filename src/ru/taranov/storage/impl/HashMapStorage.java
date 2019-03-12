@@ -1,6 +1,6 @@
-package storage.impl;
+package ru.taranov.storage.impl;
 
-import storage.Storage;
+import ru.taranov.storage.Storage;
 import ru.taranov.dto.User;
 
 import java.util.HashMap;
